@@ -1,6 +1,11 @@
+div.content {
+    color: darkgreen;
+}
+
 body {
-    background-image: url("/images/logingrocerygo.png");
+    background-image: url("/images/signupgrocerygo.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
 }
+
