@@ -116,13 +116,133 @@
     </div>
 </body>
 
+<script>
+    var singPassID = document.getElementById("tbSingPassID");
+    var userName = document.getElementById("tbUsername");
+    var userEmail = document.getElementById("tbUsername");
+    var userPass = document.getElementById("tbUsername");
+
+    var singPassList = []
+    var userNameList = []
+
+    document.getElementById('SignUpSubmitButton').addEventListener('click', signUp);
+    function signUp(){
+
+        var singPassExists = checkIfAlrExists(singPassList, singPassID.value)
+        var userNameExists = checkIfAlrExists(userNameList, userName.value)
+
+        if (singPassID.value && userName.value == "")
+        {
+            alert("Singpass and Username are empty");
+        }
+        else if (singPassID.value == "")
+        {
+            alert("Singpass are empty");
+        }
+        else if (userName.value = "")
+        {
+            alert("Username are empty");
+        }
+        else if (singPassExists && userNameExists == "true")
+        {
+            alert("Singpass ID and usrname alr exists");
+        }
+        else if (singPassExists && userNameExists == "false")
+        {
+            InsertData();
+        }
+
+    }
+
+    function checkIfAlrExists(list, x)
+    {
+        for (i in list)
+        {
+            if (i == x)
+            {
+                return "true";
+            }
+        }
+        return "false";
+    }
+</script>
+
+<script type="module">
+
+      // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.1/firebase-app.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+        apiKey: "AIzaSyCJibBa9I0XjRSttIhMgh8bym_e6QBhNH0",
+        authDomain: "pfddatabase-6127c.firebaseapp.com",
+        projectId: "pfddatabase-6127c",
+        storageBucket: "pfddatabase-6127c.appspot.com",
+        messagingSenderId: "259884057317",
+        appId: "1:259884057317:web:964e10e432ecffecd70a0c",
+        databaseURL: "https://pfddatabase-6127c-default-rtdb.asia-southeast1.firebasedatabase.app"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+
+    import {getDatabase, ref, get, set, child, update, remove}
+    from "https://www.gstatic.com/firebasejs/9.4.1/firebase-database.js";
+
+    const db = getDatabase();
+
+    // Selection Process
+
+    window.onload = LoadAllUsers;
+
+    function LoadAllUsers()
+    {
+        const dbref = ref(db);
+
+        get(child(dbref, "User/")).then(function(AllRecords)
+        {
+            AllRecords.forEach(function(CurrentRecord) {
+                singPassList.push(CurrentRecord.val().singPassID);
+                userNameList.push(CurrentRecord.val().userName);
+            });
+            });
+    }
+
+    function InsertData(){
+
+        var newNum = userNameList.length + 1
+        const dbref = ref(db);
+
+        get(child(dbref, "User/" + rollbox.value)).then(snapshot=>{
+            if(snapshot.exists()){
+                alert("Data with that ID alr exists");
+            }
+            else
+            {
+            set(ref(db, "User/"+rollbox.value),{
+                singPassID: singPassID.value,
+                userEmail: userEmail.value,
+                userID: "U00" + newNum.toString(),
+                userName: userName,
+                userPassword: userPass.value
+            })
+            .then( ()=> {
+                alert("Successfull Sign Up")
+            })
+            .catch( (error)=> {
+                alert("unsuccessful,\n error:" + error);
+            });
+        }
+        })
+    }
+
+</script>
+
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-<script type="module">
-
-    var name = "hi"
-
-</script>
 
 </html>
