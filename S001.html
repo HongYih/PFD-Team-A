@@ -165,7 +165,47 @@
 
         var slideIndex = 0;
         carousel();
+
+    function ViewProduct(x){
+
+        var result = getProductDetails(x)
+
+        console.log(result);
+        if (result != "false")
+        {
+
+        const htmlString = 
+                    `
+                    <div class="popup">
+                        <button id="closeBtn" onclick="closePopup()">Close</button>
+                        <div class="card">
+                            <img class="card-image" src="${result["productImgLink"]}"/>
+                            <h2 class="card-title">${result["productName"]}</h2>
+                            <p>Type: <br/> Height: <br/> Weight:  <br/> Ability: </p>
+                        </div>
+                    </div>;
+                    `
+        }
+    }
+
+    function getProductDetails(x)
+    {
+
+        for (let i = 0; i < productList.length; i++)
+        {
+            if (productList[i].productID == x)
+            {
+                return productList[i]
+            }
+        }
+
+        return "false";
+
+    }
+
     </script>
+
+
     <script type="module">
       // Import the functions you need from the SDKs you need
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.1/firebase-app.js";
@@ -194,7 +234,7 @@
 
         // References
         window.onload = loadAllProducts();
-        loadAllPromos();
+        window.onload = loadAllPromos();
 
         function loadAllProducts(){
 
@@ -214,41 +254,47 @@
                     <div class="card-body">
                       <h5 class="card-title prodTitle" >${CurrentRecord.val().productName}</h5>
                       <h4>$<span class="prodPrice">${CurrentRecord.val().productPrice}</span></h4>
-                      <button type="button" class="btn btn-secondary addToCart">View More Details</button>
+                      <input type="text" id="country${CurrentRecord.val().productID}" value="${CurrentRecord.val().productID}" readonly>
+                      <button type="button" onclick="ViewProduct('${CurrentRecord.val().productID}')" class="btn btn-secondary addToCart">View More Details</button>
                     </div>
                   </div>
                 </div>
                     `
 
-                    });
-                });
-    
-    function SelectData(x){
+                    /*
+
+                    */
+
+            });
+        });
+    };
+
+    /*
+
+    const displayPokemanPopup = (pokeman) => {
+        console.log(pokeman);
+        const type = pokeman.types.map((type) => type.type.name).join(', ');
+        const ability = pokeman.abilities.map((ability) => ability.ability.name).join(', ');
+        const htmlString = 
+            <div class="popup">
+                <button id="closeBtn" onclick="closePopup()">Close</button>
+                <div class="card">
+                    <img class="card-image" src="${
+                        pokeman.sprites['front_default']
+                    }"/>
+                    <h2 class="card-title">${pokeman.name}</h2>
+                    <p>Type: ${type} <br/> Height: ${pokeman.height} <br/> Weight: ${
+            pokeman.weight} <br/> Ability: ${ability}</p>
+                </div>
+            </div>;
+        pokedex.innerHTML = htmlString + pokedex.innerHTML;
+    };
+            */
+
+    function loadAllPromos()
+    {
 
         const dbref = ref(db);
-
-        console.log("hello");
-        get(child(dbref, "Product/" + x)).then(snapshot=>{
-            if(snapshot.exists()){
-                namebox.value = snapshot.val().NameOfStd;
-                secbox.value = snapshot.val().Section;
-                genbox.value = snapshot.val().Gender;
-            }
-            else{
-                alert("No records found")
-            }
-        })
-        .catch( (error)=>{
-            alert("unsuccessfull, error: " + error);
-        });
-        }
-        };
-        
-
-        function loadAllPromos()
-        {
-
-            const dbref = ref(db);
 
             get(child(dbref, "Promotions/")).then(function(AllRecords)
             {
@@ -256,7 +302,6 @@
                 var body = document.getElementById("slideshow");
 
                 AllRecords.forEach(function(CurrentRecord) {
-                    console.log(CurrentRecord.val());
 
                     var Items = [];
 
@@ -297,7 +342,7 @@
                     `
                 });
                 });
-        }
+    }
     </script>
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"
