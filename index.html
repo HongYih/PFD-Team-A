@@ -6,9 +6,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Bootstrap CSS -->
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="" rel="stylesheet">
     <title>GroceryGo</title>
@@ -102,105 +99,15 @@
             <div class="col-lg-3"></div>
         </div>
     </div>
+</body>
 
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <script type="module">
 
-      // Import the functions you need from the SDKs you need
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.1/firebase-app.js";
-    // TODO: Add SDKs for Firebase products that you want to use
-    // https://firebase.google.com/docs/web/setup#available-libraries
-
-    // Your web app's Firebase configuration
-    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-    const firebaseConfig = {
-        apiKey: "AIzaSyCJibBa9I0XjRSttIhMgh8bym_e6QBhNH0",
-        authDomain: "pfddatabase-6127c.firebaseapp.com",
-        projectId: "pfddatabase-6127c",
-        storageBucket: "pfddatabase-6127c.appspot.com",
-        messagingSenderId: "259884057317",
-        appId: "1:259884057317:web:964e10e432ecffecd70a0c",
-        databaseURL: "https://pfddatabase-6127c-default-rtdb.asia-southeast1.firebasedatabase.app"
-    };
-
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-
-    import {getDatabase, ref, get, set, child, update, remove}
-    from "https://www.gstatic.com/firebasejs/9.4.1/firebase-database.js";
-
-    const db = getDatabase();
-
-    // References
-
-    var namebox = document.getElementById("tbEmail");
-    var rollbox = document.getElementById("rollbox");
-    var secbox = document.getElementById("secbox");
-    var genbox = document.getElementById("genbox");
-
-    var insBtn = document.getElementById("insbtn");
-    var selBtn = document.getElementById("selbtn");
-    var updBtn = document.getElementById("updbtn");
-    var delBtn = document.getElementById("delbtn");
-
-    function InsertData(){
-
-        const dbref = ref(db);
-
-        get(child(dbref, "TheStudents/" + rollbox.value)).then(snapshot=>{
-            if(snapshot.exists()){
-                alert("Data  with that ID alr exists");
-            }
-            else
-            {
-            set(ref(db, "TheStudents/"+rollbox.value),{
-                NameOfStd: namebox.value,
-                RollNo: rollbox.value,
-                Section: secbox.value,
-                Gender: genbox.value
-            })
-            .then( ()=> {
-                alert("DATA STORED!!!")
-            })
-            .catch( (error)=> {
-                alert("unsuccessful,\n error:" + error);
-            });
-        }
-        })
-    }
-
-    // Selection Process
-
-    window.onload = showAllData;
-
-    function showAllData()
-    {
-        const dbref = ref(db);
-
-        get(child(dbref, "TheStudents/")).then(function(AllRecords)
-        {
-            var tbody = document.getElementById("tbody1");
-
-            AllRecords.forEach(function(CurrentRecord) {
-                console.log(CurrentRecord);
-
-                var tbody = document.getElementById("tbody1")
-
-                tbody.innerHTML +=
-                `
-                    <td>${CurrentRecord.val().NameOfStd}</td>
-                    <td>${CurrentRecord.val().RollNo}</td>
-                    <td>${CurrentRecord.val().Section}</td>
-                    <td>${CurrentRecord.val().Gender}</td>
-                `
-            });
-            });
-    }
+    var name = "hi"
 
 </script>
-
-    </script>
-
-
-</body>
 
 </html>
