@@ -5,20 +5,20 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
         integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <link href="./assets/css/login.css" rel="stylesheet">
-    <title>MoneyTracker</title>
+    <title>GroceryGo</title>
 </head>
-
 <body>
+    <div class ="topnav">
+        <a class="active" href="#"
     <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #39b54e;">
         <div class="container-fluid">
             <a class="navbar-brand" href="./index.html" aria-current="page">
                 <img src="./assets/images/logo.png" alt="" width="30" height="30" class="d-inline-block align-top">
-                MoneyTracker
+                GroceryGo
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
                 aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -37,44 +37,52 @@
             </div>
         </div>
     </nav>
-
     <div class="container fullscreen">
         <div class="row fullscreen">
             <div class="col-lg-3"></div>
             <div class="col-lg-6">
                 <div class="middle-content form-group wrap-form">
-                    <h3 class="text-center">Log In</h3>
+                    <h3 class="text-center">Sign Up</h3>
                     <div class="row mt-3 mb-3">
                         <div class="col-lg-1"></div>
                         <div class="col-lg-10">
                             <input class="form-control" id="tbUsername" type="text" placeholder="Username">
-                            <div class="required-msg">
-                                Username is required
-                            </div>
+                        </div>
+                        <div class="col-lg-1"></div>
+                    </div>
+                    
+                    <div class="row mt-3 mb-3">
+                        <div class="col-lg-1"></div>
+                        <div class="col-lg-10">
+                            <input class="form-control" id="tbUsername" type="text" placeholder="SingPass ID">
                         </div>
                         <div class="col-lg-1"></div>
                     </div>
                     <div class="row mt-3 mb-3">
                         <div class="col-lg-1"></div>
                         <div class="col-lg-10">
-                            <input class="form-control" id="tbPassword" type="password" placeholder="Password">
-                            <div class="required-msg">
-                                Password is required
-                            </div>
+                            <input class="form-control" id="tbUsername" type="text" placeholder="Email">
                         </div>
                         <div class="col-lg-1"></div>
                     </div>
                     <div class="row mt-3 mb-3">
                         <div class="col-lg-1"></div>
                         <div class="col-lg-10">
-                            <button type="submit" class="btn btn-block btn-success" id="btnLogin">LOGIN</button>
+                            <input class="form-control" id="tbUsername" type="text" placeholder="Password">
                         </div>
                         <div class="col-lg-1"></div>
                     </div>
                     <div class="row mt-3 mb-3">
                         <div class="col-lg-1"></div>
                         <div class="col-lg-10">
-                            <p>Don't have an account? <a class="linkAction" href="register.html">Register</a></p>
+                            <button type="submit" class="btn btn-block btn-success" id="btnLogin">Sign Up</button>
+                        </div>
+                        <div class="col-lg-1"></div>
+                    </div>
+                    <div class="row mt-3 mb-3">
+                        <div class="col-lg-1"></div>
+                        <div class="col-lg-10">
+                            <p>Already have an account? <a class="linkAction" href="register.html">Log In</a></p>
                         </div>
                         <div class="col-lg-1"></div>
                     </div>
