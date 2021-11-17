@@ -222,8 +222,28 @@
 
                     });
                 });
+    
+    function SelectData(x){
 
+        const dbref = ref(db);
+
+        console.log("hello");
+        get(child(dbref, "Product/" + x)).then(snapshot=>{
+            if(snapshot.exists()){
+                namebox.value = snapshot.val().NameOfStd;
+                secbox.value = snapshot.val().Section;
+                genbox.value = snapshot.val().Gender;
+            }
+            else{
+                alert("No records found")
+            }
+        })
+        .catch( (error)=>{
+            alert("unsuccessfull, error: " + error);
+        });
         }
+        };
+        
 
         function loadAllPromos()
         {
