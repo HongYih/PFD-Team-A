@@ -91,8 +91,12 @@
     </div>
 
     <script>
+
         var singPassList = []
         var userPassList = []
+        var userEmailList = []
+        var userIDList = []
+        var userNameList = []
 
         var enteredSingPass = document.getElementById("tbUsername");
         var enteredPass = document.getElementById("tbPassword");
@@ -106,6 +110,10 @@
             {
                 if (enteredPass.value == userPassList[bool])
                 {
+                    localStorage.setItem("Username", userNameList[bool])
+                    localStorage.setItem("UserEmail", userEmailList[bool])
+                    localStorage.setItem("UserID", userIDList[bool])
+                    localStorage.setItem("SingPassID", singPassIDList[bool])
                     window.location.href = "./landingpage.html";
                 }
                 else
@@ -135,7 +143,6 @@
     </script>
 
     <script type="module">
-
         // Import the functions you need from the SDKs you need
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.1/firebase-app.js";
         // TODO: Add SDKs for Firebase products that you want to use
@@ -174,6 +181,9 @@
                 AllRecords.forEach(function(CurrentRecord) {
                     singPassList.push(CurrentRecord.val().singPassID);
                     userPassList.push(CurrentRecord.val().userPassword);
+                    userEmailList.push(CurrentRecord.val().userEmail)
+                    userIDList.push(CurrentRecord.val().userID)
+                    userNameList.push(CurrentRecord.val().userName)
                 });
                 });
         }
