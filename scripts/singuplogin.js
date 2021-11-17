@@ -36,7 +36,7 @@
                 console.log(CurrentRecord);
             });
             });
-    }
+    }s
 
 
     function InsertUser(){
