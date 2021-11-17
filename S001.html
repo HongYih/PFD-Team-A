@@ -38,6 +38,38 @@
     margin: auto;
     width: 50%;
     }
+    #productpopup {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    grid-gap: 20px;
+    padding-inline-start: 0;
+    }
+    .popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    background: #f4f4f4;
+    opacity: 0.95;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1060;
+    text-transform: capitalize;
+    }
+    #closeBtn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: orangered;
+    padding: 10px 20px;
+    border: none;
+    color: white;
+    border-radius: 3px;
+    transition: transform 100ms;
+}
+
 
 </style>
 
@@ -140,15 +172,17 @@
                         <h4>$<span class="prodPrice">12.00</span></h4>
                         <p class="prodType">shirt</p>
                         <button type="button" class="btn btn-secondary addToCart">Add To Cart</button>
+                        
                         </div>
                     </div>
                     </div>
                 </div>
-            
+                <ul id="productpopup"></ul>
         </div>
     </section>
 
     <script>
+        const productpopup = document.getElementById('productpopup');
         function carousel() {
             var i;
             var x = document.getElementsByClassName("mySlides");
@@ -174,7 +208,7 @@
         if (result != "false")
         {
 
-        const htmlString = 
+        productpopup.innerHTML += 
                     `
                     <div class="popup">
                         <button id="closeBtn" onclick="closePopup()">Close</button>
@@ -185,9 +219,14 @@
                         </div>
                     </div>;
                     `
+                    
         }
+        
     }
-
+    const closePopup = () => {
+        const popup = document.querySelector('.popup');
+        popup.parentElement.removeChild(popup);
+    };
     function getProductDetails(x)
     {
 
