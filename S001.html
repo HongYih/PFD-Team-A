@@ -212,9 +212,7 @@
                     <img src="${CurrentRecord.val().productImgLink}" class="card-img-top prodImg" alt="img fail to load">
                     <div class="card-body">
                       <h5 class="card-title prodTitle" >${CurrentRecord.val().productName}</h5>
-                      <p class="card-text prodDesc" >$</p>
-                      <h4>$<span class="prodPrice">$${CurrentRecord.val().productPrice}</span></h4>
-                      <p class="prodType">shirt</p>
+                      <h4>$<span class="prodPrice">${CurrentRecord.val().productPrice}</span></h4>
                       <button type="button" class="btn btn-secondary addToCart">View More Details</button>
                     </div>
                   </div>
@@ -268,9 +266,8 @@
                                     <div class="card-body shadow-lg">
                                         <h5 class="card-title prodTitle" >${CurrentRecord.val().promoName}</h5>
                                         <p class="card-text prodDesc" >${CurrentRecord.val().promoDesc}</p>
-                                        <h4> <span class="text-danger"><del>Min. Spendature: $ ${CurrentRecord.val().promoMinValue} of wholemeal products!</del></span> <br> $<span class="text-success prodPrice">${CurrentRecord.val().promoVal * 100}% OFF!!!</span></h4>
+                                        <h4> <span class="text-danger">Min. Spendature: $ ${CurrentRecord.val().promoMinValue} of wholemeal products!</span> <br> $<span class="text-success prodPrice">${CurrentRecord.val().promoVal * 100}% OFF!!!</span></h4>
                                         <p>Products Available: ${items}</p>
-                                        <button type="button" class="btn btn-secondary addToCart">Add To Cart</button>
                                     </div>
                                 </div>
                             </div>
