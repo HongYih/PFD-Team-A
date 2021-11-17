@@ -26,42 +26,62 @@
         right: 0;
         padding-bottom: 50px;
     }
+    .overlay-image{
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        top: 0;
+    }
 </style>
 
 <body>
 
     <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #39b54e;">
-        <div class="container-fluid">
+        <div class = "container-fluid">
             <a class="navbar-brand" href="./index.html" aria-current="page">
-                <img src="./assets/images/logo.png" alt="" width="30" height="30" class="d-inline-block align-top">
-                MoneyTracker
+                <img src="./images/logo.png" alt="" width="30" height="30" class="d-inline-block align-top">
+                GroceryGo
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
                 aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                <div class="ml-auto custom-control custom-switch">
-                    <input class="custom-control-input" type="checkbox" id="nightModeSwitch">
-                    <label class="custom-control-label" style="color: #fff;" for="nightModeSwitch">Night Mode</label>
-                </div>
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="./login.html">Log In</a>
-                    </li>
+                <ul class="navbar-nav mr-auto">
+                        <a class="nav-item">
+                            <a class="nav-link" href="#">Community Blog</a>
+                        </a>
+                        <a class="nav-item">
+                            <a class="nav-link" href="#">Text Translation</a>
+                        </a>
+                        <a class="nav-item">
+                            <a class="nav-link" href="#">Inventory Details</a>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </ul>
+                        <div class="ml-auto custom-control custom-switch">
+                            <input class="custom-control-input" type="checkbox" id="nightModeSwitch">
+                            <label class="custom-control-label" style="color: #fff;" for="nightModeSwitch">Night Mode</label>
+                        </div>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <div id="myCarousel" class="carousel slide pt-5" data-ride="carousel">
         <ol class="carousel-indicators">
             <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
             <li data-target="#myCarousel" data-slide-to="1"></li>
         </ol>
         <div class="carousell-inner">
             <div class="carousel-item active">
-                <div class="container">
+                <div class="container text-dark">
                     <h1>Example Headline</h1>
                     <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quo delectus vel possimus necessitatibus dolore libero nam voluptates perferendis, deserunt dolorum nulla perspiciatis repudiandae eius aperiam provident repellendus temporibus veritatis reiciendis.</p>
                     <a href="" class="btn btn-lg btn-primary">Sign Up Today</a>
@@ -69,7 +89,7 @@
             </div>
 
             <div class="carousel-item">
-                <div class="container">
+                <div class="container text-dark">
                     <h1>Example Headline</h1>
                     <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quo delectus vel possimus necessitatibus dolore libero nam voluptates perferendis, deserunt dolorum nulla perspiciatis repudiandae eius aperiam provident repellendus temporibus veritatis reiciendis.</p>
                     <a href="" class="btn btn-lg btn-primary">Sign Up Today</a>

@@ -1,6 +1,8 @@
 <!doctype html>
 <html lang="en">
 
+<!-- TO-DO-LIST -> COPY ASSIGNMENT 3 CODE FOR THIS PAGE -->
+
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -110,10 +112,11 @@
             {
                 if (enteredPass.value == userPassList[bool])
                 {
+                    localStorage.clear()
                     localStorage.setItem("Username", userNameList[bool])
                     localStorage.setItem("UserEmail", userEmailList[bool])
                     localStorage.setItem("UserID", userIDList[bool])
-                    localStorage.setItem("SingPassID", singPassIDList[bool])
+                    localStorage.setItem("SingPassID", singPassList[bool])
                     window.location.href = "./landingpage.html";
                 }
                 else
@@ -174,6 +177,8 @@
 
         function LoadAllUsers()
         {
+
+            localStorage.clear()
             const dbref = ref(db);
 
             get(child(dbref, "User/")).then(function(AllRecords)
