@@ -17,12 +17,12 @@
             padding: 0px;
         }
 
-        #facilities {
+        #supermarkets {
             background-color: #dbe5e6;
             padding: 30px 0px;
         }
 
-        #facilities h1 {
+        #supermarkets h1 {
             font-weight: 900;
             font-size: 34px;
             padding-bottom: 5px;
@@ -37,6 +37,11 @@
             font-size: 18px;
         }
 
+        .card:hover {
+            -webkit-box-shadow: -1px 9px 40px -12px rgba(0, 0, 0, 0.75);
+            -moz-box-shadow: -1px 9px 40px -12px rgba(0, 0, 0, 0.75);
+            box-shadow: -1px 9px 40px -12px;
+        }
 
 
     </style>
@@ -68,52 +73,13 @@
     </nav>
     </div>
 
-    <section id="facilities">
+    <section id="supermarkets">
         <div class="container">
             <div class="title">
                 <h1>Supermarkets</h1>
                 <p>NEAR YOU!!</p>
             </div>
-            <div class="row">
-
-                <div class="col-md-4">
-                    <div class="card text-left">
-                        <img class="card-img-top" src="..." alt="img here">
-                        <div class="card-body">
-                            <h5 class="card-title">Supermarket X</h5>
-                            <p class="card-text">
-                                Location: <a href="#" class="card-link">Another link</a><br>
-                                Available Items: <a href="#" class="card-link">Another link</a><br>
-                                Crowd Status: _____
-                            </p>
-                            <a href="#" class="card-link">Card link</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="card text-center">
-                        <img class="card-img-top" src="..." alt="img here">
-                        <div class="card-body">
-                            <h5 class="card-title">Supermarket X</h5>
-                            <p class="card-text">Loren EEEEPSUMM</p>
-                            <a href="#" class="card-link">Card link</a>
-                            <a href="#" class="card-link">Another link</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="card text-center">
-                        <img class="card-img-top" src="..." alt="img here">
-                        <div class="card-body">
-                            <h5 class="card-title">Supermarket X</h5>
-                            <p class="card-text">Loren EEEEPSUMM</p>
-                            <a href="#" class="card-link">Card link</a>
-                            <a href="#" class="card-link">Another link</a>
-                        </div>
-                    </div>
-                </div>
+            <div id="smROWS" class="row">
 
             </div>
         </div>
@@ -128,5 +94,84 @@
         crossorigin="anonymous"></script>
     <script src="assets/js/login.js"></script>
 </body>
+
+<script>
+</script>
+
+<script type="module">
+      // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.1/firebase-app.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+        apiKey: "AIzaSyCJibBa9I0XjRSttIhMgh8bym_e6QBhNH0",
+        authDomain: "pfddatabase-6127c.firebaseapp.com",
+        projectId: "pfddatabase-6127c",
+        storageBucket: "pfddatabase-6127c.appspot.com",
+        messagingSenderId: "259884057317",
+        appId: "1:259884057317:web:964e10e432ecffecd70a0c",
+        databaseURL: "https://pfddatabase-6127c-default-rtdb.asia-southeast1.firebasedatabase.app"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+
+    import {getDatabase, ref, get, set, child, update, remove}
+    from "https://www.gstatic.com/firebasejs/9.4.1/firebase-database.js";
+
+    const db = getDatabase();
+
+    // References
+    window.onload = getAllSMs();
+
+    function LoadAllUsers()
+    {
+        const dbref = ref(db);
+
+        get(child(dbref, "User/")).then(function(AllRecords)
+        {
+            AllRecords.forEach(function(CurrentRecord) {
+                singPassList.push(CurrentRecord.val().singPassID);
+                userNameList.push(CurrentRecord.val().userName);
+            });
+            });
+    }
+
+    function getAllSMs()
+    {
+        const dbref = ref(db);
+
+        get(child(dbref, "Supermarket/")).then(function(AllRecords)
+        {
+            var body = document.getElementById("smROWS");
+
+            AllRecords.forEach(function(CurrentRecord) {
+                console.log(CurrentRecord);
+
+                body.innerHTML +=
+                `
+                <div class="col-md-4">
+                    <div class="card text-left">
+                        <img class="card-img-top" src="${CurrentRecord.val().smImgLink}" alt="No Picture Available">
+                        <div class="card-body"
+                            <h5 class="card-title">${CurrentRecord.val().smName}</h5>
+                            <p class="card-text">
+                                Location: <a href="#" class="card-link">${CurrentRecord.val().smLocation}</a><br>
+                                Available Items: <a href="./S001.html" class="card-link">${CurrentRecord.val().smName}</a><br>
+                                Opening Hours: ${CurrentRecord.val().smOpeningTime} to ${CurrentRecord.val().smClosingTime} <br>
+                                Crowd Status: ${CurrentRecord.val().smCrowdStatus}
+                            </p>
+                            <a href="#" class="card-link">Card link</a>
+                        </div>
+                    </div>
+                </div>
+                `
+            });
+            });
+    }
+</script>
 
 </html>
