@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
         integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <link href="./assets/css/login.css" rel="stylesheet">
-    <title>MoneyTracker</title>
+    <title>Inventory</title>
 </head>
 <style>
     /*
@@ -99,18 +99,19 @@
                             <a class="nav-link" href="supermarket.html">Inventory Details</a>
                         </a>
                     </ul>
-                        <div class="ml-auto custom-control custom-switch">
-                            <input class="custom-control-input" type="checkbox" id="nightModeSwitch">
-                            <label class="custom-control-label" style="color: #fff;" for="nightModeSwitch">Night Mode</label>
-                        </div>
+                    <div id="google_translate_element"></div>
                 </ul>
             </div>
         </div>
     </nav>
 
+<<<<<<< HEAD
     <div id="S001Title">
 
     </div>
+=======
+    <h1>Supermarket North</h1>
+>>>>>>> 33a3771852c2c022dc5a31da61fc4b07e79f2a82
 
         <div class="container-fluid pt-5">
           <div class="row d-flex justify-content-center ">
@@ -239,18 +240,18 @@
 
         for (let i = 0; i < healthTypeList.length; i++)
         {
-            for (let j = 0; j < result.healthTypeID.length; j++)
+            for (let j = 0; j < result["healthTypeID"]; j++)
             {
-                if (result.healthTypeID[j] == healthTypeList[i].healthTypeID)
+                if (healthTypeList[i].healthTypeID == result["healthTypeID"][j])
                 {
-                    console.log(healthTypeList[i].healthTypeName)
-                    healthTypes.push(healthTypeList[i].healthTypeName);
+                    healthTypes.push(healthTypeList[i]["healthTypeName"]);
                 }
             }
         }
 
         console.log(healthTypes);
 
+        console.log(result);
         if (result != "false")
         {
 
@@ -261,11 +262,15 @@
                         <div class="card">
                             <img class="card-image" src="${result["productImgLink"]}"/>
                             <h2 class="card-title">${result["productName"]}</h2>
+<<<<<<< HEAD
                             <p>Health Types: ${healthTypes.toString()} 
                                 <br/> Price: $${result["productPrice"]}
                                 <br/> Quantity: ${quantity}
                                 <br/> Ability: 
                             </p>
+=======
+                            <p>Type: <br/> Height: <br/> Weight:  <br/> Ability: </p>
+>>>>>>> 33a3771852c2c022dc5a31da61fc4b07e79f2a82
                         </div>
                     </div>;
                     `
@@ -273,12 +278,10 @@
         }
         
     }
-
     const closePopup = () => {
         const popup = document.querySelector('.popup');
         popup.parentElement.removeChild(popup);
     };
-
     function getProductDetails(x)
     {
 
@@ -473,5 +476,11 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
         crossorigin="anonymous"></script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+          new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+        }
+        </script>
 </body>
 </html>
