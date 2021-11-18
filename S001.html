@@ -9,7 +9,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
         integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-    <link href="./assets/css/login.css" rel="stylesheet">
+    <!-- <link href="./assets/css/login.css" rel="stylesheet"> -->
     <title>Inventory</title>
 </head>
 <style>
@@ -34,6 +34,11 @@
         right: 0;
         top: 0;
     }*/
+
+    body {
+        background-image: url(/images/logingrocerygo.png);
+    }
+
     .slideShow {
     margin: auto;
     width: 50%;
@@ -104,13 +109,13 @@
         </div>
     </nav>
 
-    <div id="S001Title">
+    <div id="S001Title" style="justify-content: center;">
 
     </div>
 
         <div class="container-fluid pt-5">
-          <div class="row d-flex justify-content-center ">
-            <div class="border border-success col-8 col-md-9title text-center mt-3 bg-ash shadow-lg">
+          <div class="row d-flex justify-content-center">
+            <div class="text-light bg-dark border border-success col-8 col-md-9title text-center mt-3 bg-ash shadow-lg">
               <h4 class="fs-1">Limited Time Offers</h4>
             </div>
         </div>
@@ -132,11 +137,11 @@
             </div>
         </section>
 
-        <div id="shop" class="row bg-carbon" style="height: 200px; overflow: hidden;">
-                <div class="col-3 shopLogo" style="padding-top: 2.5%;">
+        <div id="shop" class="row bg-carbon bg-success" style="height: 200px; overflow: hidden;">
+            <div class="col-3 shopLogo " style="padding-top: 2.5%;">
                   <h1>💸💻</h1>
                 </div>
-                <div class="col-5 col-sm-4" style="width: 60%;">
+                <div class="col-5 col-sm-4 " style="width: 60%;">
                       <form class="pt-5">
                         <div class="input-group" id="prodSearch">
                             <span class="input-group-text">Search</span>
@@ -163,6 +168,9 @@
         </div>
     </section>
 
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"
+        integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+
     <script>
         const productpopup = document.getElementById('productpopup');
         function carousel() {
@@ -178,6 +186,7 @@
         }
 
     var productList = [];
+    var productDetailsList = [];
     var healthTypeList = [];
         
         
@@ -195,23 +204,58 @@
     function ViewProduct(x){
 
         var result = getProductDetails(x)
+        var result2 = getProductAdvDetails(x)
         var selectedId = sessionStorage.getItem("SelectedID");
+
+        console.log(result);
 
         if (selectedId == "S001")
         {
-            quantity = result["Quantity"][0];
+            var indexNum = result["smID"].indexOf(selectedId);
+            if (indexNum > -1)
+            {
+                quantity = result["Quantity"][indexNum];
+            }
+            else
+            {
+                quantity = "Not Available In " + sessionStorage.getItem("SelectedName")
+            }
         }
         else if (selectedId == "S002")
         {
-            quantity = result["Quantity"][1];
+            var indexNum = result["smID"].indexOf(selectedId);
+            if (indexNum > -1)
+            {
+                quantity = result["Quantity"][indexNum];
+            }
+            else
+            {
+                quantity = "Not Available In " + sessionStorage.getItem("SelectedName")
+            }
         }
         else if (selectedId == "S003")
         {
-            quantity = result["Quantity"][2];
+            var indexNum = result["smID"].indexOf(selectedId);
+            if (indexNum > -1 )
+            {
+                quantity = result["Quantity"][indexNum];
+            }
+            else
+            {
+                quantity = "Not Available In " + sessionStorage.getItem("SelectedName")
+            }
         }
         else if (selectedId == "S004")
         {
-            quantity = result["Quantity"][3];
+            var indexNum = result["smID"].indexOf(selectedId);
+            if (indexNum > -1)
+            {
+                quantity = result["Quantity"][indexNum];
+            }
+            else
+            {
+                quantity = "Not Available In " + sessionStorage.getItem("SelectedName")
+            }            quantity = result["Quantity"][3];
         }
         else
         {
@@ -229,25 +273,22 @@
             }
         }
         
-        if (result != "false")
+        if (result != "false" && result2 != "false")
         {
 
         productpopup.innerHTML += 
                     `
-                    <div class="popup">
+                    <div class="popup border border-success">
                         <button id="closeBtn" onclick="closePopup()">Close</button>
                         <div class="card">
                             <img class="card-image" src="${result["productImgLink"]}"/>
-                            <h2 class="card-title">${result["productName"]}</h2>
-                            <p>Health Types: ${healthTypes.toString()} 
-<<<<<<< HEAD
+                            <h3 class="card-title">${result["productName"]}</h3>
+                            <p>Health Types: ${healthTypes.toString().replace(/,/g, ', ')}
                                 <br/> Price: $${result["productPrice"].toFixed(2)}
                                 <br/> Quantity: ${quantity}
-=======
-                                <br/> Price: $${result["productPrice"]}
-                                <br/> Quantity In Stock: ${quantity}
->>>>>>> 721204b2b99db4d0f7b94b6f987d2061f396755c
-                                <br/> Ability: 
+                                <br/> Brand: ${result2["productBrand"]}
+                                <br/>=======[Nutritional Count]=========
+                                <br/>Calories: ${result2["productCal"]}
                             </p>
                         </div>
                     </div>;
@@ -273,6 +314,22 @@
         return "false";
     }
 
+    function getProductAdvDetails(x)
+    {
+        //productDetailsList
+
+        for (let i = 0; i < productDetailsList.length; i++)
+        {
+            if (productDetailsList[i].productID == x)
+            {
+                return productDetailsList[i];
+            }
+        }
+
+        return "false";
+
+    }
+
     function ProdTypeSearch() {
         // htDropDownList
         var healthTypeIDS = []
@@ -289,12 +346,43 @@
             var i = healthTypeIDS.indexOf(selectedProducType);
             healthTypeIDS.splice(i);
 
-            $('#HT002').hide();
-            $('#HT003').hide();
-            $('#HT004').hide();
-            /*var link = document.getElementById(healthTypeIDS[x]);
-            console.log(link);
-            link.style.visibility = 'hidden';*/
+            $('.HT001').hide();
+            $('.HT003').hide();
+            $('.HT002').hide();
+            $('.HT004').show();
+            console.log("DONE");
+        }
+        if (selectedProducType == "HT003")
+        {
+            var i = healthTypeIDS.indexOf(selectedProducType);
+            healthTypeIDS.splice(i);
+
+            $('.HT001').hide();
+            $('.HT004').hide();
+            $('.HT002').hide();
+            $('.HT003').show();
+            console.log("DONE");
+        }
+        if (selectedProducType == "HT002")
+        {
+            var i = healthTypeIDS.indexOf(selectedProducType);
+            healthTypeIDS.splice(i);
+
+            $('.HT001').hide();
+            $('.HT003').hide();
+            $('.HT004').hide();
+            $('.HT002').show();
+            console.log("DONE");
+        }
+        if (selectedProducType == "HT001")
+        {
+            var i = healthTypeIDS.indexOf(selectedProducType);
+            healthTypeIDS.splice(i);
+
+            $('.HT002').hide();
+            $('.HT003').hide();
+            $('.HT004').hide();
+            $('.HT001').show();
             console.log("DONE");
         }
 
@@ -333,7 +421,7 @@
         // References
         window.onload = loadAllHealthypes();
         window.onload = loadAllProducts();
-        window.onload = loadAllPromos();
+        window.onload = loadAllPromos(), loadAllProductDetails();
 
         function loadAllHealthypes()
         {
@@ -354,6 +442,18 @@
                     `
 
                     healthTypeList.push(CurrentHT.val());
+                });
+            });
+        }
+
+        function loadAllProductDetails(){
+            const dbref = ref(db);
+            
+            get(child(dbref, "Product Details/")).then(function(AllPD)
+            {
+                AllPD.forEach(function(CurrentPD)
+                {
+                    productDetailsList.push(CurrentPD.val());
                 });
             });
         }
@@ -381,8 +481,6 @@
                             }
                         }*/
 
-                        console.log(healthTypeList);
-
                         if (CurrentRecord.val().healthTypeID.length > 0 && CurrentRecord.val().healthTypeID[0] != " ")
                         {
                             var a = CurrentRecord.val().healthTypeID;
@@ -406,7 +504,7 @@
 
                         body.innerHTML +=
                         `
-                    <div id="${idStringLis.toString().replace(/,/g, ' ')}" class="col shopItem">
+                    <div class="${idStringLis.toString().replace(/,/g, ' ')}" class="col shopItem">
                     <div class="card h-100">
                         <img src="${CurrentRecord.val().productImgLink}" class="card-img-top prodImg" alt="img fail to load">
                         <div class="card-body">
@@ -484,8 +582,6 @@
 
     </script>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"
-        integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
         crossorigin="anonymous"></script>
