@@ -38,6 +38,41 @@
     margin: auto;
     width: 50%;
     }
+    #productpopup {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    grid-gap: 20px;
+    padding-inline-start: 0;
+    }
+    .popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    background: #f4f4f4;
+    opacity: 0.95;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1060;
+    text-transform: capitalize;
+    }
+    #closeBtn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: orangered;
+    padding: 10px 20px;
+    border: none;
+    color: white;
+    border-radius: 3px;
+    transition: transform 100ms;
+    }
+    .card-image{
+        width : 530px;
+        height : 530px;
+    }
 
 </style>
 
@@ -55,20 +90,14 @@
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav mr-auto">
                         <a class="nav-item">
-                            <a class="nav-link" href="#">Community Blog</a>
+                            <a class="nav-link" href="healthenquiry.html">Health Enquiry</a>
                         </a>
                         <a class="nav-item">
-                            <a class="nav-link" href="#">Text Translation</a>
+                            <a class="nav-link" href="texttranslate.html">Text Translation</a>
                         </a>
                         <a class="nav-item">
-                            <a class="nav-link" href="#">Inventory Details</a>
+                            <a class="nav-link" href="supermarket.html">Inventory Details</a>
                         </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        </ul>
                     </ul>
                         <div class="ml-auto custom-control custom-switch">
                             <input class="custom-control-input" type="checkbox" id="nightModeSwitch">
@@ -140,15 +169,17 @@
                         <h4>$<span class="prodPrice">12.00</span></h4>
                         <p class="prodType">shirt</p>
                         <button type="button" class="btn btn-secondary addToCart">Add To Cart</button>
+                        
                         </div>
                     </div>
                     </div>
                 </div>
-            
+                <ul id="productpopup"></ul>
         </div>
     </section>
 
     <script>
+        const productpopup = document.getElementById('productpopup');
         function carousel() {
             var i;
             var x = document.getElementsByClassName("mySlides");
@@ -162,10 +193,69 @@
         }
 
         var productList = [];
+        var healthTypeList = [];
 
         var slideIndex = 0;
         carousel();
+
+    function ViewProduct(x){
+
+        var result = getProductDetails(x)
+
+        healthTypes = []
+
+        for (let i = 0; i < healthTypeList.length; i++)
+        {
+            for (let j = 0; j < result["healthTypeID"]; j++)
+            {
+                if (healthTypeList[i].healthTypeID == result["healthTypeID"][j])
+                {
+                    healthTypes.push(healthTypeList[i]["healthTypeName"]);
+                }
+            }
+        }
+
+        console.log(result);
+        if (result != "false")
+        {
+
+        productpopup.innerHTML += 
+                    `
+                    <div class="popup">
+                        <button id="closeBtn" onclick="closePopup()">Close</button>
+                        <div class="card">
+                            <img class="card-image" src="${result["productImgLink"]}"/>
+                            <h2 class="card-title">${result["productName"]}</h2>
+                            <p>Type: <br/> Height: <br/> Weight:  <br/> Ability: </p>
+                        </div>
+                    </div>;
+                    `
+                    
+        }
+        
+    }
+    const closePopup = () => {
+        const popup = document.querySelector('.popup');
+        popup.parentElement.removeChild(popup);
+    };
+    function getProductDetails(x)
+    {
+
+        for (let i = 0; i < productList.length; i++)
+        {
+            if (productList[i].productID == x)
+            {
+                return productList[i]
+            }
+        }
+
+        return "false";
+
+    }
+
     </script>
+
+
     <script type="module">
       // Import the functions you need from the SDKs you need
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.1/firebase-app.js";
@@ -194,7 +284,8 @@
 
         // References
         window.onload = loadAllProducts();
-        loadAllPromos();
+        window.onload = loadAllPromos();
+        window.onload = loadAllHealthypes();
 
         function loadAllProducts(){
 
@@ -214,21 +305,39 @@
                     <div class="card-body">
                       <h5 class="card-title prodTitle" >${CurrentRecord.val().productName}</h5>
                       <h4>$<span class="prodPrice">${CurrentRecord.val().productPrice}</span></h4>
-                      <button type="button" class="btn btn-secondary addToCart">View More Details</button>
+                      <input type="text" id="country${CurrentRecord.val().productID}" value="${CurrentRecord.val().productID}" readonly hidden>
+                      <button type="button" onclick="ViewProduct('${CurrentRecord.val().productID}')" class="btn btn-secondary addToCart">View More Details</button>
                     </div>
                   </div>
                 </div>
                     `
 
+                    /*
+
+                    */
+
                     });
-                });
+            });
+        };
 
-        }
-
-        function loadAllPromos()
+    function loadAllHealthypes()
+    {
+        const dbref = ref(db);
+        
+        get(child(dbref, "Health Type/")).then(function(AllHT)
         {
+            AllHT.forEach(function(CurrentHT)
+            {
+                healthTypeList.push(CurrentHT.val());
+            });
+        });
+    }
 
-            const dbref = ref(db);
+
+    function loadAllPromos()
+    {
+
+        const dbref = ref(db);
 
             get(child(dbref, "Promotions/")).then(function(AllRecords)
             {
@@ -236,7 +345,6 @@
                 var body = document.getElementById("slideshow");
 
                 AllRecords.forEach(function(CurrentRecord) {
-                    console.log(CurrentRecord.val());
 
                     var Items = [];
 
@@ -277,7 +385,9 @@
                     `
                 });
                 });
-        }
+    }
+
+
     </script>
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"
