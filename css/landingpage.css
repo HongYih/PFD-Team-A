@@ -1,11 +1,18 @@
 div.content {
     color: darkgreen;
+    font-size:larger;
+    margin-left: 200px;
+    border: 100px;
+    font-size: 30pt ;
+    position: relative; top: 100px; left: 30px;
 }
 
 body {
-    background-image: url("/images/signupgrocerygo.jpg");
+    background-image: url("/images/landingpagegrocerygo.png");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
+    height: 600px;
 }
+
 
