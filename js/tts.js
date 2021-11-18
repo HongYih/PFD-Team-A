@@ -100,3 +100,6 @@ pitch.addEventListener('change', e => (pitchValue.textContent = pitch.value));
 
 // Voice select change
 voiceSelect.addEventListener('change', e => speak());
+
+
+//---------------------------------------------------------------------------------------------------------\\
