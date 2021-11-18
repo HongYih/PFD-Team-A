@@ -108,7 +108,9 @@
         </div>
     </nav>
 
-    <h1>Supermarket North</h1>
+    
+    <div id="smTitleName">
+    </div>
 
         <div class="container-fluid pt-5">
           <div class="row d-flex justify-content-center ">
@@ -179,6 +181,15 @@
     </section>
 
     <script>
+
+        if (sessionStorage.getItem("SelectedName") != "")
+        {
+            var title = document.getElementById("smTitleName")
+
+            title.innerHTML = `<h1>${sessionStorage.getItem("SelectedName")}</h1>`
+
+        }
+
         const productpopup = document.getElementById('productpopup');
         function carousel() {
             var i;
@@ -194,6 +205,10 @@
 
         var productList = [];
         var healthTypeList = [];
+        
+        
+        var healthTypes = []
+        heal
 
         var slideIndex = 0;
         carousel();
@@ -201,21 +216,24 @@
     function ViewProduct(x){
 
         var result = getProductDetails(x)
-
-        healthTypes = []
+        
+        console.log(result.healthTypeID);
 
         for (let i = 0; i < healthTypeList.length; i++)
         {
-            for (let j = 0; j < result["healthTypeID"]; j++)
+            for (let j = 0; j < result.healthTypeID.length; j++)
             {
-                if (healthTypeList[i].healthTypeID == result["healthTypeID"][j])
+                if (result.healthTypeID[j] == healthTypeList[i].healthTypeID)
                 {
-                    healthTypes.push(healthTypeList[i]["healthTypeName"]);
+                    console.log(healthTypeList[i].healthTypeName)
+                    healthTypes.push(healthTypeList[i].healthTypeName);
                 }
             }
         }
 
-        console.log(result);
+        console.log(healthTypes);
+
+
         if (result != "false")
         {
 
@@ -226,7 +244,11 @@
                         <div class="card">
                             <img class="card-image" src="${result["productImgLink"]}"/>
                             <h2 class="card-title">${result["productName"]}</h2>
-                            <p>Type: <br/> Height: <br/> Weight:  <br/> Ability: </p>
+                            <p>Health Types: ${healthTypes.toString()} 
+                                <br/> Price: $${result["productPrice"]}
+                                <br/> Quantity: ${result["Quantity"][0]}
+                                <br/> Ability: 
+                            </p>
                         </div>
                     </div>;
                     `
@@ -234,10 +256,12 @@
         }
         
     }
+
     const closePopup = () => {
         const popup = document.querySelector('.popup');
         popup.parentElement.removeChild(popup);
     };
+
     function getProductDetails(x)
     {
 

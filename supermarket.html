@@ -96,6 +96,16 @@
 </body>
 
 <script>
+
+    function settingSM(smName, smID)
+    {
+        sessionStorage.clear();
+        sessionStorage.setItem('SelectedName', smName);
+        sessionStorage.setItem('SelectedID', smID);
+        
+        window.location.href = './S001.html'
+    }    
+
 </script>
 
 <script type="module">
@@ -153,7 +163,7 @@
 
                 body.innerHTML +=
                 `
-                <div class="col-md-4">
+                <div class="col-md-4" id="${CurrentRecord.val().smName}">
                     <div class="card text-left">
                         <img class="card-img-top" src="${CurrentRecord.val().smImgLink}" alt="No Picture Available">
                         <div class="card-body"
@@ -164,7 +174,7 @@
                                 Opening Hours: ${CurrentRecord.val().smOpeningTime} to ${CurrentRecord.val().smClosingTime} <br>
                                 Crowd Status: ${CurrentRecord.val().smCrowdStatus}
                             </p>
-                            <a href="#" class="card-link">Card link</a>
+                            <button onclick="settingSM('${CurrentRecord.val().smName}', '${CurrentRecord.val().smID}')" class="card-link">View Supermarket Products</button>
                         </div>
                     </div>
                 </div>
