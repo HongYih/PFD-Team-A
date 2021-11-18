@@ -284,14 +284,13 @@
             var i = healthTypeIDS.indexOf(selectedProducType);
             healthTypeIDS.splice(i);
 
-            for (let x = 0; x < healthTypeIDS.length; x++)
-            {
-                var link = document.getElementById(healthTypeIDS[x]);
-                console.log(link);
-                link.style.visibility = 'hidden';
-                console.log("DONE");
-            }
-
+            $('#HT002').hide();
+            $('#HT003').hide();
+            $('#HT004').hide();
+            /*var link = document.getElementById(healthTypeIDS[x]);
+            console.log(link);
+            link.style.visibility = 'hidden';*/
+            console.log("DONE");
         }
 
     }
