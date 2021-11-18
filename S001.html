@@ -509,7 +509,7 @@
                         <img src="${CurrentRecord.val().productImgLink}" class="card-img-top prodImg" alt="img fail to load">
                         <div class="card-body">
                         <h5 class="card-title prodTitle" >${CurrentRecord.val().productName}</h5>
-                        <h4>$<span class="prodPrice">${CurrentRecord.val().productPrice}</span></h4>
+                        <h4>$<span class="prodPrice">${CurrentRecord.val().productPrice.toFixed(2)}</span></h4>
                         <input type="text" id="country${CurrentRecord.val().productID}" value="${CurrentRecord.val().productID}" readonly hidden>
                         <button type="button" onclick="ViewProduct('${CurrentRecord.val().productID}')" class="btn btn-secondary addToCart">View More Details</button>
                         </div>
@@ -567,7 +567,7 @@
                                     <div class="card-body shadow-lg">
                                         <h5 class="card-title prodTitle" >${CurrentRecord.val().promoName}</h5>
                                         <p class="card-text prodDesc" >${CurrentRecord.val().promoDesc}</p>
-                                        <h4> <span class="text-danger">Min. Spendature: $ ${CurrentRecord.val().promoMinValue} of wholemeal products!</span> <br> $<span class="text-success prodPrice">${CurrentRecord.val().promoVal * 100}% OFF!!!</span></h4>
+                                        <h4> <span class="text-danger">Min. Spendature: $ ${CurrentRecord.val().promoMinValue.toFixed(2)} of wholemeal products!</span> <br> $<span class="text-success prodPrice">${CurrentRecord.val().promoVal * 100}% OFF!!!</span></h4>
                                         <p>Products Available: ${items}</p>
                                     </div>
                                 </div>
