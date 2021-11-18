@@ -240,13 +240,8 @@
                             <img class="card-image" src="${result["productImgLink"]}"/>
                             <h2 class="card-title">${result["productName"]}</h2>
                             <p>Health Types: ${healthTypes.toString()} 
-<<<<<<< HEAD
                                 <br/> Price: $${result["productPrice"].toFixed(2)}
                                 <br/> Quantity: ${quantity}
-=======
-                                <br/> Price: $${result["productPrice"]}
-                                <br/> Quantity In Stock: ${quantity}
->>>>>>> 721204b2b99db4d0f7b94b6f987d2061f396755c
                                 <br/> Ability: 
                             </p>
                         </div>
@@ -412,7 +407,7 @@
                         <img src="${CurrentRecord.val().productImgLink}" class="card-img-top prodImg" alt="img fail to load">
                         <div class="card-body">
                         <h5 class="card-title prodTitle" >${CurrentRecord.val().productName}</h5>
-                        <h4>$<span class="prodPrice">${CurrentRecord.val().productPrice}</span></h4>
+                        <h4>$<span class="prodPrice">${CurrentRecord.val().productPrice.toFixed(2)}</span></h4>
                         <input type="text" id="country${CurrentRecord.val().productID}" value="${CurrentRecord.val().productID}" readonly hidden>
                         <button type="button" onclick="ViewProduct('${CurrentRecord.val().productID}')" class="btn btn-secondary addToCart">View More Details</button>
                         </div>
