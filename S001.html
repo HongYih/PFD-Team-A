@@ -98,9 +98,8 @@
                         <a class="nav-item">
                             <a class="nav-link" href="supermarket.html">Inventory Details</a>
                         </a>
-                    </ul>
-                    <div id="google_translate_element"></div>
                 </ul>
+                <div id="google_translate_element"></div>
             </div>
         </div>
     </nav>
@@ -145,12 +144,10 @@
                         </div>
                         <div class="input-group" id="prodType">
                             <span class="input-group-text">Type</span>
-                            <select class="form-select form-select-sm prodTypeSearch" aria-label="form-select">
-                                <option value="all">All</option>
-                                <option value="shirt">Shirts</option>
-                                <option value="electronics">Electronics</option>
-                                <option value="food">Food</option>
-                                <option value="kitchen">Kitchen</option>
+                            <select id="htDropdownList" onchange="ProdTypeSearch()" class="form-select form-select-sm" aria-label="form-select">
+
+                                <option value="All">All</option>
+
                               </select>
                         </div>
                     </form>
@@ -159,18 +156,7 @@
             <div>
                 <div id="shopDisplay" class="row row-cols-1 row-cols-md-3 g-4 bg-dandelion">
                     
-                    <div class="col shopItem">
-                    <div class="card h-100">
-                        <img src="" class="card-img-top prodImg" alt="img fail to load">
-                        <div class="card-body">
-                        <h5 class="card-title prodTitle" >Green T-Shirt</h5>
-                        <p class="card-text prodDesc" >Very Comfortable T-Shirt</p>
-                        <h4>$<span class="prodPrice">12.00</span></h4>
-                        <p class="prodType">shirt</p>
-                        <button type="button" class="btn btn-secondary addToCart">Add To Cart</button>
-                        
-                        </div>
-                    </div>
+                    
                     </div>
                 </div>
                 <ul id="productpopup"></ul>
@@ -231,23 +217,18 @@
         {
             quantity = result["productName"] + " is not available in " + sessionStorage.getItem("Selected")
         }
-        
-        console.log(result.healthTypeID);
 
         for (let i = 0; i < healthTypeList.length; i++)
         {
-            for (let j = 0; j < result["healthTypeID"]; j++)
+            for (let j = 0; j < result.healthTypeID.length; j++)
             {
-                if (healthTypeList[i].healthTypeID == result["healthTypeID"][j])
+                if (healthTypeList[i].healthTypeID == result.healthTypeID[j])
                 {
-                    healthTypes.push(healthTypeList[i]["healthTypeName"]);
+                    healthTypes.push(healthTypeList[i].healthTypeName);
                 }
             }
         }
-
-        console.log(healthTypes);
-
-        console.log(result);
+        
         if (result != "false")
         {
 
@@ -259,8 +240,13 @@
                             <img class="card-image" src="${result["productImgLink"]}"/>
                             <h2 class="card-title">${result["productName"]}</h2>
                             <p>Health Types: ${healthTypes.toString()} 
+<<<<<<< HEAD
                                 <br/> Price: $${result["productPrice"].toFixed(2)}
                                 <br/> Quantity: ${quantity}
+=======
+                                <br/> Price: $${result["productPrice"]}
+                                <br/> Quantity In Stock: ${quantity}
+>>>>>>> 721204b2b99db4d0f7b94b6f987d2061f396755c
                                 <br/> Ability: 
                             </p>
                         </div>
@@ -274,20 +260,47 @@
         const popup = document.querySelector('.popup');
         popup.parentElement.removeChild(popup);
     };
+
     function getProductDetails(x)
     {
-
         for (let i = 0; i < productList.length; i++)
         {
             if (productList[i].productID == x)
             {
-                return productList[i]
+                return productList[i];
             }
         }
-
         return "false";
+    }
+
+    function ProdTypeSearch() {
+        // htDropDownList
+        var healthTypeIDS = []
+        for (let i = 0; i < healthTypeList.length; i++)
+        {
+            healthTypeIDS.push(healthTypeList[i].healthTypeID);
+        }
+
+        var selectedProducType = document.getElementById("htDropdownList").value;
+        console.log(selectedProducType);
+        
+        if (selectedProducType == "HT004")
+        {
+            var i = healthTypeIDS.indexOf(selectedProducType);
+            healthTypeIDS.splice(i);
+
+            for (let x = 0; x < healthTypeIDS.length; x++)
+            {
+                var link = document.getElementById(healthTypeIDS[x]);
+                console.log(link);
+                link.style.visibility = 'hidden';
+                console.log("DONE");
+            }
+
+        }
 
     }
+
 
     </script>
 
@@ -319,9 +332,32 @@
         const db = getDatabase();
 
         // References
+        window.onload = loadAllHealthypes();
         window.onload = loadAllProducts();
         window.onload = loadAllPromos();
-        window.onload = loadAllHealthypes();
+
+        function loadAllHealthypes()
+        {
+            const dbref = ref(db);
+
+            healthTypeList = [];
+            
+            get(child(dbref, "Health Type/")).then(function(AllHT)
+            {
+                var dropdown = document.getElementById("htDropdownList");
+                AllHT.forEach(function(CurrentHT)
+                {
+                    dropdown.innerHTML +=
+                    `
+                    <option value="${CurrentHT.val().healthTypeID}">
+                        ${CurrentHT.val().healthTypeName}
+                    </option>
+                    `
+
+                    healthTypeList.push(CurrentHT.val());
+                });
+            });
+        }
 
         function loadAllProducts(){
 
@@ -357,7 +393,8 @@
                                 {
                                     if (a[i] == healthTypeList[x].healthTypeID)
                                     {
-                                        console.log(healthTypeID[x]);
+                                        var name = healthTypeList[x].healthTypeID + " ";
+                                        idStringLis.push(name);
                                     }
                                     
                                 }
@@ -370,12 +407,12 @@
 
                         body.innerHTML +=
                         `
-                    <div id="${idStringLis.toString()}" class="col shopItem">
+                    <div id="${idStringLis.toString().replace(/,/g, ' ')}" class="col shopItem">
                     <div class="card h-100">
                         <img src="${CurrentRecord.val().productImgLink}" class="card-img-top prodImg" alt="img fail to load">
                         <div class="card-body">
                         <h5 class="card-title prodTitle" >${CurrentRecord.val().productName}</h5>
-                        <h4>$<span class="prodPrice">${CurrentRecord.val().productPrice.toFixed(2)}</span></h4>
+                        <h4>$<span class="prodPrice">${CurrentRecord.val().productPrice}</span></h4>
                         <input type="text" id="country${CurrentRecord.val().productID}" value="${CurrentRecord.val().productID}" readonly hidden>
                         <button type="button" onclick="ViewProduct('${CurrentRecord.val().productID}')" class="btn btn-secondary addToCart">View More Details</button>
                         </div>
@@ -390,21 +427,6 @@
                     });
             });
         };
-
-    function loadAllHealthypes()
-    {
-        const dbref = ref(db);
-
-        healthTypeList = [];
-        
-        get(child(dbref, "Health Type/")).then(function(AllHT)
-        {
-            AllHT.forEach(function(CurrentHT)
-            {
-                healthTypeList.push(CurrentHT.val());
-            });
-        });
-    }
 
 
     function loadAllPromos()
@@ -448,7 +470,7 @@
                                     <div class="card-body shadow-lg">
                                         <h5 class="card-title prodTitle" >${CurrentRecord.val().promoName}</h5>
                                         <p class="card-text prodDesc" >${CurrentRecord.val().promoDesc}</p>
-                                        <h4> <span class="text-danger">Min. Spendature: $ ${CurrentRecord.val().promoMinValue.toFixed(2)} of wholemeal products!</span> <br> $<span class="text-success prodPrice">${CurrentRecord.val().promoVal * 100}% OFF!!!</span></h4>
+                                        <h4> <span class="text-danger">Min. Spendature: $ ${CurrentRecord.val().promoMinValue} of wholemeal products!</span> <br> $<span class="text-success prodPrice">${CurrentRecord.val().promoVal * 100}% OFF!!!</span></h4>
                                         <p>Products Available: ${items}</p>
                                     </div>
                                 </div>

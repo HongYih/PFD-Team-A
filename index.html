@@ -11,6 +11,7 @@
         integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="/css/signup.css" rel="stylesheet">
+    <link href="./css/navbar.css" rel="stylesheet">
     <title>GroceryGo</title>
 </head>
 <body>
@@ -35,9 +36,13 @@
                         <a class="nav-item">
                             <a class="nav-link" href="supermarket.html">Inventory Details</a>
                         </a>
-                    </ul>
-                    <div id="google_translate_element"></div>
                 </ul>
+                <div class = "narrate" style = "padding-right: 10px;">
+                    <button id=play></button>
+                    <button id=pause></button>
+                    <button id=stop></button>
+                </div>
+                <div id="google_translate_element"></div>
             </div>
         </div>
     </nav>
@@ -231,6 +236,7 @@
           new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
         }
 </script>
+<script src="js/navbar.js"></script>
 
 </html>
 
