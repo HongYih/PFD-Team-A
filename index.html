@@ -180,23 +180,6 @@
 
     const db = getDatabase();
 
-    // Selection Process
-
-    window.onload = LoadAllUsers;
-
-    function LoadAllUsers()
-    {
-        const dbref = ref(db);
-
-        get(child(dbref, "User/")).then(function(AllRecords)
-        {
-            AllRecords.forEach(function(CurrentRecord) {
-                singPassList.push(CurrentRecord.val().singPassID);
-                userNameList.push(CurrentRecord.val().userName);
-            });
-            });
-    }
-
     function InsertData(){
 
         var newNum = userNameList.length + 1
@@ -223,6 +206,23 @@
             });
         }
         })
+    }
+
+    // Selection Process
+
+    window.onload = LoadAllUsers;
+
+    function LoadAllUsers()
+    {
+        const dbref = ref(db);
+
+        get(child(dbref, "User/")).then(function(AllRecords)
+        {
+            AllRecords.forEach(function(CurrentRecord) {
+                singPassList.push(CurrentRecord.val().singPassID);
+                userNameList.push(CurrentRecord.val().userName);
+            });
+            });
     }
 
 </script>
