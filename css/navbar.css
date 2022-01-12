@@ -5,14 +5,41 @@
     font-size: 100px;
     padding: 50px;
 }
-button {
-background: none;
-border: none;
-cursor: pointer;
-height: 48px;
-outline: none;
-padding: 0;
-width: 48px;
+.navbar-toggler{
+    background: none;
+    border: none;
+    cursor: pointer;
+    height: 48px;
+    outline: none;
+    padding: 0;
+    width: 48px;
+}
+.play{
+    background: none;
+    border: none;
+    cursor: pointer;
+    height: 48px;
+    outline: none;
+    padding: 0;
+    width: 48px;
+}
+.pause{
+    background: none;
+    border: none;
+    cursor: pointer;
+    height: 48px;
+    outline: none;
+    padding: 0;
+    width: 48px;
+}
+.stop{
+    background: none;
+    border: none;
+    cursor: pointer;
+    height: 48px;
+    outline: none;
+    padding: 0;
+    width: 48px;
 }
 
 #play {
