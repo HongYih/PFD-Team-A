@@ -135,6 +135,7 @@
         }
         else if (singPassExists && userNameExists == "false")
         {
+            alert("Successfully created account");
             InsertData();
         }
 
@@ -170,7 +171,9 @@
         messagingSenderId: "259884057317",
         appId: "1:259884057317:web:964e10e432ecffecd70a0c",
         databaseURL: "https://pfddatabase-6127c-default-rtdb.asia-southeast1.firebasedatabase.app"
+        
     };
+
 
     // Initialize Firebase
     const app = initializeApp(firebaseConfig);
