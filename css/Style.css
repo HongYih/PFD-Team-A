@@ -84,6 +84,16 @@ main .site-content{
     grid-template-columns: 70% 30%;
 }
 
+main .posting{
+    width: 100%;
+    padding: 1rem 2rem;
+    position: relative;
+}
+main .posting .post-btn{
+    background: var(--sky);
+}
+
+
 main .post-content{
     width: 100%;
     
@@ -310,6 +320,11 @@ footer.footer .move-up span:hover{
 /*              Viewport less then or equal to 1130px            */
 
 @media only screen and (max-width: 1130px){
+    .posting{
+        left: 2rem !important;
+        bottom: 1.2rem !important;
+        border-radius: 0% !important;
+    }
     .site-content .post-content > .post-image .post-info{
         left: 2rem !important;
         bottom: 1.2rem !important;
@@ -346,6 +361,10 @@ footer.footer .move-up span:hover{
 
     footer.footer .container{
         grid-template-columns: repeat(1, 1fr);
+    }
+    
+    main .posting{
+        grid-template-columns: 100%
     }
 
 }
